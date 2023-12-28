@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>[Template] Sample Inner Page</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/adminList.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Yummy
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+<!-- [header] 영역 시작 -->
+<header th:replace="fragments/header :: headerFragment"></header>
+<!-- [header] 영역 끝 -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>관리자 페이지</h2>
+          <ol>
+            <li><a href="http://localhost:8080/index">돌아가기</a></li>
+          </ol>
+        </div>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <section class="sample-page">
+      <div class="container" data-aos="fade-up">
+
+        <div id="wrap">
+          <h1>게시판 리스트</h1>
+          <table class="list">
+            <tr>
+              <td colspan="6" style="border:white; text-align:right">
+                <a th:href="@{/boardMake}">게시판 추가하기</a>
+              </td>
+            </tr>
+            <tr>
+              <th>게시판 종류</th>
+              <th>이    름</th>
+              <th>소    개</th>
+              <th>사    진</th>
+              <th>가    격</th>
+              <th>등 록 일</th>
+              <th>수 정 일</th>
+            </tr>
+            <tr th:each="board : ${boardList}" th:data-boardnum="${board.boardNum}" onclick="updateBoard(this)">
+              <td class="none">
+                <span th:switch="${board.boardcase}">
+                    <span th:value="0" th:case="0">샤브 메뉴 </span>
+                    <span th:value="1" th:case="1">추가 메뉴</span>
+                    <span th:value="2" th:case="2">음료/주류 </span>
+                    <span th:value="3" th:case="3">이벤트 </span>
+                </span>
+              </td>
+              <td class="long"><span th:text="${board.title}"></span></td>
+              <td class="long2" th:text="${board.content}"></td>
+              <td>
+                <span class="none" th:if="${board.url == '' or board.url == null}"> X </span>
+                <span class="none" th:if="${board.url != null}"> O </span>
+              </td>
+              <td class="none">
+                <span th:text="${board.price}"></span>
+              </td>
+              <td class="none">
+                <span th:text="${#temporals.format(board.regDate, 'yy-MM-dd HH:mm')}"></span>
+              </td>
+              <td class="none">
+                <span th:text="${#temporals.format(board.updateDate, 'yy-MM-dd HH:mm')}"></span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+<!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/aos/aos.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/main.js"></script>
+  <script th:inline="javascript">
+    function updateBoard(element) {
+      var boardNum = element.getAttribute('data-boardnum');
+      if (boardNum) {
+        window.location.href = '/boardMake?boardNum=' + boardNum;
+      }
+    }
+  </script>
+
+</body>
+
+</html>
