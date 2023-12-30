@@ -41,6 +41,24 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public List<BoardDTO> getAdditionList() {
+        List<BoardDTO> additionList = boardMapper.selectAdditionList();
+        return additionList;
+    }
+
+    @Override
+    public List<BoardDTO> getDrinkList() {
+        List<BoardDTO> drinkList = boardMapper.selectDrinkList();
+        return drinkList;
+    }
+
+    @Override
+    public List<BoardDTO> getEventList() {
+        List<BoardDTO> eventList = boardMapper.selectEventList();
+        return eventList;
+    }
+
+    @Override
     public BoardDTO getId(Long boardNum) {
         BoardDTO board = boardMapper.selectBoardId(boardNum);
         return board;

@@ -49,16 +49,22 @@ public class MainController {
             // 이번주 예약
             // 1. 샤브샤브
             List<BoardDTO> syabeuList = boardService.getSyabeuList();
-            log.error("잘 넘어오는지 확인해보자 !! : " + syabeuList);
-            // 2.
+            // 2. 추가메뉴
+            List<BoardDTO> additionList = boardService.getAdditionList();
+            // 3. 음료/주류
+            List<BoardDTO> drinkList = boardService.getDrinkList();
+            // 4. 이벤트
+            List<BoardDTO> eventList = boardService.getEventList();
 
-            // 샤브샤브 메뉴
 
 
 
             // result 넘기기
             model.addAttribute("result", dto);
             model.addAttribute("syabeuList", syabeuList);
+            model.addAttribute("additionList", additionList);
+            model.addAttribute("drinkList", drinkList);
+            model.addAttribute("eventList", eventList);
 
         }catch (Exception e){
             log.error("get Index error : " + e);
@@ -164,4 +170,13 @@ public class MainController {
         return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
     }
 
+    @GetMapping("/login")
+    public String getLogin(){
+        return "/login";
+    }
+
+    @PostMapping("/login")
+    public String postLogin(){
+        return "/index";
+    }
 }

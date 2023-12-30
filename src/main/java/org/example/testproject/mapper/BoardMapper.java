@@ -15,5 +15,8 @@ public interface BoardMapper {
     void deleteBoard(BoardDTO dto);
     List<BoardDTO> selectAdminList();
     List<BoardDTO> selectSyabeuList();
+    List<BoardDTO> selectAdditionList();
+    List<BoardDTO> selectDrinkList();
+    List<BoardDTO> selectEventList();
     BoardDTO selectBoardId(Long boardNum);
 }

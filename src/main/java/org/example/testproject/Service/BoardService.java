@@ -14,6 +14,9 @@ public interface BoardService {
     void updateBoard(BoardDTO dto);
     void deleteBoard(BoardDTO dto);
     List<BoardDTO> getAdminList();
+    List<BoardDTO> getAdditionList();
+    List<BoardDTO> getDrinkList();
+    List<BoardDTO> getEventList();
 
     BoardDTO getId(Long boardNum);
 }

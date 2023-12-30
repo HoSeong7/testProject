@@ -42,9 +42,27 @@
         where b.board_num = #{boardNum}
     </select>
 
+    <select id="selectAdditionList" resultType="BoardDTO">
+        <include refid="boardList"/>
+            where b.boardcase = 1
+            order by b.board_num asc
+    </select>
+
+    <select id="selectDrinkList" resultType="BoardDTO">
+        <include refid="boardList"/>
+        where b.boardcase = 2
+        order by b.board_num asc
+    </select>
+
+    <select id="selectEventList" resultType="BoardDTO">
+        <include refid="boardList"/>
+        where b.boardcase = 3
+        order by b.board_num asc
+    </select>
+
     <select id="selectSyabeuList" resultType="BoardDTO">
         <include refid="boardList"/>
-            where b.boardcase = 0
-            order by b.board_num asc
+        where b.boardcase = 0
+        order by b.board_num asc
     </select>
 </mapper>
