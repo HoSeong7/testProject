@@ -54,4 +54,9 @@ public class Member extends BaseEntity{
     @ElementCollection(fetch= FetchType.EAGER)
     @Builder.Default
     private Set<MemberRole> roleset = new HashSet<>();
+
+    /** role Set에 값 넣어주기*/
+    public void addMemberRole(MemberRole memberRole) {
+        roleset.add(memberRole);
+    }
 }
