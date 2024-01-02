@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+#wrap{
+    width: 971px;
+    margin:0;
+    margin-left: auto;
+    margin-right: auto;
+}
+h1{
+    color: black;
+    text-align:center;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height:24px;
+}
+table th, td{
+    border: #d3d3d3 solid 1px;
+    padding: 5px;
+}
+.center{
+    text-align:center;
+}
+.long{
+    width:25%;
+}
+.long2{
+    width: 30%;
+}
+.none{
+    width: 10%;
+}
+th{
+    background: #eee;
+}
+img{
+    width:200px;
+    height:300px;
+}
+a{
+    text-decoration: none;
+    color:black;
+}
+#write{
+    text-align:right;
+}
+a:hover{
+    text-decoration: underline;
+    color:green;
+}

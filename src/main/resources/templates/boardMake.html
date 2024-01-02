@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>게시판 추가</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Yummy
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+<!-- [header] 영역 시작 -->
+<header th:replace="fragments/header :: headerFragment"></header>
+<!-- [header] 영역 끝 -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>게시판 추가/수정</h2>
+          <ol>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/adminList">목록</a></li>
+          </ol>
+        </div>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <section class="sample-page">
+      <div class="container" data-aos="fade-up">
+        <div id="wrap" align="center">
+          <h1>게시판 추가</h1>
+          <br/>
+          <form id="frm" method="post" enctype="multipart/form-data" th:action="@{/boardRegister}">
+            <table>
+              <tr>
+                <th>게시판 종류</th>
+                <td>
+                  <select id="boardcase" name="boardcase">
+                    <option selected disabled>게시판 선택</option>
+                    <option value="0">샤브 메뉴</option>
+                    <option value="1">추가 메뉴</option>
+                    <option value="2">음료/주류</option>
+                    <option value="3">이벤트</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>이름</th>
+                <td><input type="text" name="title"></td>
+              </tr>
+              <tr>
+                <th>소개</th>
+                <td><textarea rows="5" cols="30" name="content"></textarea></td>
+              </tr>
+              <tr>
+                <th>가격</th>
+                <td><input type="text" name="price"></td>
+              </tr>
+              <tr>
+                <th>이미지</th>
+                <td>
+                  <input type="file" name="pictureurl"><br/><br/> <div th:if="${board.url != null}">기존 이미지 : <img th:if="${board.url != null}" width="70px" height="70px" th:src="'/display?fileName='+${board.url}"></div>
+                </td>
+              </tr>
+
+              <input type="hidden" name="boardNum">
+              <input type="hidden" name="regDate">
+            </table>
+            <br/><br/>
+            <input type="submit" value="등록">
+            <input type="reset" value="다시작성">
+            <input type="button" value="목록" onclick="location.href='/adminList'">
+            <input th:if="${board.boardNum != null}" type="button" value="삭제" onclick="deleteBoard()">
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+<!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/aos/aos.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/main.js"></script>
+  <script th:inline="javascript">
+
+    window.onload = function() {
+      var boardNum = /*[[${board.boardNum}]]*/;
+      var form = document.getElementById('frm');
+
+      if (boardNum) {
+        var boardcase = /*[[${board.boardcase}]]*/;
+        var title = /*[[${board.title}]]*/;
+        var content = /*[[${board.content}]]*/;
+        var price = /*[[${board.price}]]*/;
+        var regDate = /*[[${board.regDate}]]*/;
+
+        form.elements['boardNum'].value = boardNum;
+        form.elements['boardcase'].value = boardcase;
+        form.elements['title'].value = title;
+        form.elements['content'].value = content;
+        form.elements['price'].value = price;
+        form.elements['regDate'].value = regDate;
+      }
+    };
+
+    function deleteBoard(){
+      var boardNum = /*[[${board.boardNum}]]*/;
+      if (confirm("정말로 삭제하시겠습니까?")) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/deleteBoard", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // 삭제할 게시글 번호를 JSON 형식으로 전달
+        var data = JSON.stringify({ boardNum: boardNum });
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              alert("삭제되었습니다.");
+              window.location.href = '/adminList';
+            } else {
+              alert("삭제에 실패했습니다.");
+            }
+          }
+        };
+        xhr.send(data);
+      }
+    }
+  </script>
+
+</body>
+
+</html>

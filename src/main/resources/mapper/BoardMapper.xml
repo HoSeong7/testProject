@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.testproject.mapper.BoardMapper">
+
+    <insert id="insertBoard" parameterType="Board">
+        INSERT INTO board (reg_date ,update_date, boardcase, title, content, url, price)
+        VALUES (#{regDate}, #{updateDate}, #{boardcase}, #{title}, #{content}, #{url}, #{price})
+    </insert>
+
+    <update id="updateBoard" parameterType="Board">
+        update board
+        set reg_date = #{regDate},
+            update_date = #{updateDate},
+            boardcase = #{boardcase},
+            title = #{title},
+            content = #{content},
+            url = #{url},
+            price = #{price}
+        where board_num = #{boardNum}
+    </update>
+
+    <delete id="deleteBoard">
+        delete from board
+        where board_num = #{boardNum}
+    </delete>
+
+    <sql id="boardList">
+        select b.board_num as boardNum, b.reg_date as regDate ,b.update_date as updateDate, b.boardcase, b.title, b.content, b.url, b.price
+        from board b
+    </sql>
+
+    <select id="selectAdminList" resultType="BoardDTO">
+        <include refid="boardList"/>
+        order by b.boardcase asc
+    </select>
+
+    <select id="selectBoardId" resultType="BoardDTO">
+        <include refid="boardList"/>
+        where b.board_num = #{boardNum}
+    </select>
+
+    <select id="selectAdditionList" resultType="BoardDTO">
+        <include refid="boardList"/>
+            where b.boardcase = 1
+            order by b.board_num asc
+    </select>
+
+    <select id="selectDrinkList" resultType="BoardDTO">
+        <include refid="boardList"/>
+        where b.boardcase = 2
+        order by b.board_num asc
+    </select>
+
+    <select id="selectEventList" resultType="BoardDTO">
+        <include refid="boardList"/>
+        where b.boardcase = 3
+        order by b.board_num asc
+    </select>
+
+    <select id="selectSyabeuList" resultType="BoardDTO">
+        <include refid="boardList"/>
+        where b.boardcase = 0
+        order by b.board_num asc
+    </select>
+</mapper>
